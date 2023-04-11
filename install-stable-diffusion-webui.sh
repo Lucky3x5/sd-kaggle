@@ -114,5 +114,4 @@ git clone https://huggingface.co/nolanaatama/ESRGAN $QUIET
 echo -e "${INFO_COLOR}Installation completed"
 
 # Web UI tunnel
-/kaggle/working/stable-diffusion-webui/venv/bin/deactivate
 echo -e "${INFO_COLOR}Starting WebUI${NO_COLOR}"
