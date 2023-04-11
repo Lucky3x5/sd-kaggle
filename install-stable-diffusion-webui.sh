@@ -28,12 +28,12 @@ pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 tor
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
-git clone -b v2.0 https://github.com/camenduru/stable-diffusion-webui
-wget https://raw.githubusercontent.com/camenduru/stable-diffusion-webui-scripts/main/run_n_times.py -O /kaggle/working/stable-diffusion-webui/scripts/run_n_times.py
-#git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
-#echo -e "${INFO_COLOR}    Downgrading Stable Diffusion${NO_COLOR}"
-#cd /kaggle/working/stable-diffusion-webui
-#git checkout 0cc0ee1
+#git clone -b v2.0 https://github.com/camenduru/stable-diffusion-webui
+#wget https://raw.githubusercontent.com/camenduru/stable-diffusion-webui-scripts/main/run_n_times.py -O /kaggle/working/stable-diffusion-webui/scripts/run_n_times.py
+git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
+echo -e "${INFO_COLOR}    Downgrading Stable Diffusion${NO_COLOR}"
+cd /kaggle/working/stable-diffusion-webui
+git checkout 0cc0ee1
 
 #echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Tunnels extension${NO_COLOR}"
 #git clone https://github.com/nolanaatama/sd-webui-tunnels /kaggle/working/stable-diffusion-webui/extensions/sd-webui-tunnels $QUIET
@@ -58,7 +58,7 @@ for model_url in "${newarr[@]}";
 do
     model_name=$(basename "$model_url")
     echo -e "${INFO_COLOR}            $model_name${NO_COLOR}"
-    curl -Lo "/kaggle/working/stable-diffusion-webui/models/$model_name" "$model_url"
+    curl -Lo "/kaggle/working/stable-diffusion-webui/models/Stable-diffusion/$model_name" "$model_url"
 done
 
 ## ControlNet Models
