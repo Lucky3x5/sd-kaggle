@@ -7,15 +7,15 @@ NO_COLOR='\033[0m'
 #QUIET=' --quiet'
 
 # Memory Fix
-#echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
-#mkdir /kaggle/working/tmp
-#cd /kaggle/working/tmp
-#curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
-#unzip memfix.zip
-#apt install -y -qq libunwind8-dev
-#dpkg -i *.deb
-#cd /kaggle/working
-#rm -rf /kaggle/working/tmp
+echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
+mkdir /kaggle/working/tmp
+cd /kaggle/working/tmp
+curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
+unzip memfix.zip
+apt install -y -qq libunwind8-dev
+dpkg -i *.deb
+cd /kaggle/working
+rm -rf /kaggle/working/tmp
 
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
@@ -28,12 +28,20 @@ cd /kaggle/working/stable-diffusion-webui
 git checkout 0cc0ee1
 
 # Python 3.8 virtual environment
+echo -e "${INFO_COLOR}Upgrading python${NO_COLOR}"
+rm /opt/conda/bin/python{,3,3.7}
+ln -sf /usr/bin/python3.8 /opt/conda/bin/python
+ln -sf /usr/bin/python3.8 /opt/conda/bin/python3
+ln -sf /usr/bin/python3.8 /opt/conda/bin/python3.7
+sed -n "s/python3\.7/python3\.8/" /opt/conda/bin/pip*
+
 echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
 apt install -y python3.8-venv
 python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
 echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
 source /kaggle/working/stable-diffusion-webui/venv/bin/activate
 python --version
+pip --version
 
 # FastAPI
 echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
