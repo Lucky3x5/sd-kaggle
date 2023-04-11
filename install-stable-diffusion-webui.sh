@@ -40,6 +40,7 @@ apt install -y python3.8-venv
 python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
 echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
 source /kaggle/working/stable-diffusion-webui/venv/bin/activate
+pip install --upgrade pip setuptools
 python --version
 pip --version
 
