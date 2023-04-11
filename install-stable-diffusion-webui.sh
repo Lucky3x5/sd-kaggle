@@ -6,8 +6,8 @@ NO_COLOR='\033[0m'
 #alias curl='curl -S -s'
 #QUIET=' --quiet'
 
-alias python='python3.8'
-alias pip='python3.8 -m pip'
+python='python3.8'
+pip='python3.8 -m pip'
 
 # Memory Fix
 #echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
@@ -22,11 +22,11 @@ alias pip='python3.8 -m pip'
 
 # FastAPI
 echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
-pip install --upgrade fastapi==0.90.1 $QUIET
+$pip install --upgrade fastapi==0.90.1 $QUIET
 
 # pyTorch
 echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
-pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 -U $QUIET
+$pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 -U $QUIET
 
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
