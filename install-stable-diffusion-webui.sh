@@ -12,7 +12,7 @@ mkdir /kaggle/working/tmp
 cd /kaggle/working/tmp
 curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
 unzip memfix.zip
-apt install -qq libunwind8-dev
+apt install -y -qq libunwind8-dev
 dpkg -i *.deb
 cd /kaggle/working
 rm -rf /kaggle/working/tmp
