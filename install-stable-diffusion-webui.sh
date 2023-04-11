@@ -29,6 +29,7 @@ git checkout 0cc0ee1
 
 # Python 3.8 virtual environment
 echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
+apt install -y python3.8-venv
 python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
 echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
 source /kaggle/working/stable-diffusion-webui/venv/bin/activate
