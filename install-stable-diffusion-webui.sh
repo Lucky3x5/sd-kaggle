@@ -35,11 +35,11 @@ ln -sf /usr/bin/python3.8 /opt/conda/bin/python3
 ln -sf /usr/bin/python3.8 /opt/conda/bin/python3.7
 sed -n "s/python3\.7/python3\.8/" /opt/conda/bin/pip*
 
-echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
-apt install -y python3.8-venv
-python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
-echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
-source /kaggle/working/stable-diffusion-webui/venv/bin/activate
+#echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
+#apt install -y python3.8-venv
+#python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
+#echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
+#source /kaggle/working/stable-diffusion-webui/venv/bin/activate
 python --version
 pip --version
 
