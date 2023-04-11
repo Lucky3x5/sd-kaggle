@@ -47,12 +47,13 @@ pip --version
 echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
 pip install --upgrade fastapi==0.90.1 $QUIET
 
+# pyTorch
+echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
+pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 -U $QUIET
+
 # Deps
 pip install -r /kaggle/working/stable-diffusion-webui/requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu116
 
-# pyTorch
-#echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
-#pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117 -U $QUIET
 
 #echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Tunnels extension${NO_COLOR}"
 #git clone https://github.com/nolanaatama/sd-webui-tunnels /kaggle/working/stable-diffusion-webui/extensions/sd-webui-tunnels $QUIET
