@@ -48,7 +48,7 @@ echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
 pip install --upgrade fastapi==0.90.1 $QUIET
 
 # Deps
-pip install -r /kaggle/working/stable-diffusion-webui/requirements-versions.txt --extra-index-url https://download.pytorch.org/whl/cu116
+pip install -r /kaggle/working/stable-diffusion-webui/requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu116
 
 # pyTorch
 #echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
