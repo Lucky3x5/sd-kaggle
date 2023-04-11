@@ -6,6 +6,9 @@ NO_COLOR='\033[0m'
 #alias curl='curl -S -s'
 #QUIET=' --quiet'
 
+alias python='python3.8'
+alias pip='python3.8 -m pip'
+
 # Memory Fix
 #echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
 #mkdir /kaggle/working/tmp
