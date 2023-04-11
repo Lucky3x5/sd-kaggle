@@ -6,9 +6,6 @@ NO_COLOR='\033[0m'
 #alias curl='curl -S -s'
 #QUIET=' --quiet'
 
-python='python3.8'
-pip='python3.8 -m pip'
-
 # Memory Fix
 #echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
 #mkdir /kaggle/working/tmp
@@ -20,14 +17,6 @@ pip='python3.8 -m pip'
 #cd /kaggle/working
 #rm -rf /kaggle/working/tmp
 
-# FastAPI
-echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
-$pip install --upgrade fastapi==0.90.1 $QUIET
-
-# pyTorch
-echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
-$pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 -U $QUIET
-
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
@@ -37,6 +26,21 @@ git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
 echo -e "${INFO_COLOR}    Downgrading Stable Diffusion${NO_COLOR}"
 cd /kaggle/working/stable-diffusion-webui
 git checkout 0cc0ee1
+
+# Python 3.8 virtual environment
+echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
+python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
+echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
+source /kaggle/working/stable-diffusion-webui/venv/bin/activate
+python --version
+
+# FastAPI
+echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
+pip install --upgrade fastapi==0.90.1 $QUIET
+
+# pyTorch
+echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
+pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 -U $QUIET
 
 #echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Tunnels extension${NO_COLOR}"
 #git clone https://github.com/nolanaatama/sd-webui-tunnels /kaggle/working/stable-diffusion-webui/extensions/sd-webui-tunnels $QUIET
@@ -109,4 +113,5 @@ git clone https://huggingface.co/nolanaatama/ESRGAN $QUIET
 echo -e "${INFO_COLOR}Installation completed"
 
 # Web UI tunnel
+/kaggle/working/stable-diffusion-webui/venv/bin/deactivate
 echo -e "${INFO_COLOR}Starting WebUI${NO_COLOR}"
