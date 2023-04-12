@@ -12,18 +12,16 @@ git --version
 git lfs install
 git lfs --version
 
-mkdir /kaggle/tmp
-
 # Memory Fix
 echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
-cd /kaggle/tmp
+mkdir /kaggle/tmp/tmp
+cd /kaggle/tmp/tmp
 curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
 unzip memfix.zip
 apt install -y -qq libunwind8-dev
 dpkg -i *.deb
-cd /kaggle
-rm -rf /kaggle/tmp
-mkdir /kaggle/tmp
+cd /kaggle/tmp
+rm -rf /kaggle/tmp/tmp
 
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
