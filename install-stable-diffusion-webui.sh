@@ -7,15 +7,15 @@ NO_COLOR='\033[0m'
 #QUIET=' --quiet'
 
 # Memory Fix
-echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
-mkdir /kaggle/working/tmp
-cd /kaggle/working/tmp
-curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
-unzip memfix.zip
-apt install -y -qq libunwind8-dev
-dpkg -i *.deb
-cd /kaggle/working
-rm -rf /kaggle/working/tmp
+#echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
+#mkdir /kaggle/working/tmp
+#cd /kaggle/working/tmp
+#curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
+#unzip memfix.zip
+#apt install -y -qq libunwind8-dev
+#dpkg -i *.deb
+#cd /kaggle/working
+#rm -rf /kaggle/working/tmp
 
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
@@ -28,19 +28,19 @@ cd /kaggle/working/stable-diffusion-webui
 git checkout 0cc0ee1
 
 # Python 3.8 virtual environment
-echo -e "${INFO_COLOR}Upgrading python${NO_COLOR}"
-rm /opt/conda/bin/python{,3,3.7}
-ln -sf /usr/bin/python3.8 /opt/conda/bin/python
-ln -sf /usr/bin/python3.8 /opt/conda/bin/python3
-ln -sf /usr/bin/python3.8 /opt/conda/bin/python3.7
-sed -n "s/python3\.7/python3\.8/" /opt/conda/bin/pip*
+#echo -e "${INFO_COLOR}Upgrading python${NO_COLOR}"
+#rm /opt/conda/bin/python{,3,3.7}
+#ln -sf /usr/bin/python3.8 /opt/conda/bin/python
+#ln -sf /usr/bin/python3.8 /opt/conda/bin/python3
+#ln -sf /usr/bin/python3.8 /opt/conda/bin/python3.7
+#sed -n "s/python3\.7/python3\.8/" /opt/conda/bin/pip*
 
-echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
-apt install -y python3.8-venv
-python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
-echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
-source /kaggle/working/stable-diffusion-webui/venv/bin/activate
-pip install --upgrade pip setuptools
+#echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
+#apt install -y python3.8-venv
+#python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
+#echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
+#source /kaggle/working/stable-diffusion-webui/venv/bin/activate
+#pip install --upgrade pip setuptools
 python --version
 pip --version
 
@@ -50,10 +50,10 @@ pip install --upgrade fastapi==0.90.1 $QUIET
 
 # pyTorch
 echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
-pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 -U $QUIET
+pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117 -U $QUIET
 
 # Deps
-pip install -r /kaggle/working/stable-diffusion-webui/requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu116
+#pip install -r /kaggle/working/stable-diffusion-webui/requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu116
 
 
 #echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Tunnels extension${NO_COLOR}"
@@ -65,7 +65,7 @@ pip install -r /kaggle/working/stable-diffusion-webui/requirements_versions.txt 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
 git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser /kaggle/working/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoCon extension${NO_COLOR}"
-git clone https://github.com/KohakuBlueleaf/a1111-sd-webui-locon /kaggle/working/stable-diffusion-webui/extensions/a1111-sd-webui-locon $QUIET
+git clone https://github.com/Lucky3x5/a1111-sd-webui-locon /kaggle/working/stable-diffusion-webui/extensions/a1111-sd-webui-locon $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoRA block weight extension${NO_COLOR}"
 git clone https://github.com/hako-mikan/sd-webui-lora-block-weight /kaggle/working/stable-diffusion-webui/extensions/sd-webui-lora-block-weight $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI HighRes Fix extension${NO_COLOR}"
