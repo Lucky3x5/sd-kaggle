@@ -7,40 +7,24 @@ NO_COLOR='\033[0m'
 #QUIET=' --quiet'
 
 # Memory Fix
-#echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
-#mkdir /kaggle/working/tmp
-#cd /kaggle/working/tmp
-#curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
-#unzip memfix.zip
-#apt install -y -qq libunwind8-dev
-#dpkg -i *.deb
-#cd /kaggle/working
-#rm -rf /kaggle/working/tmp
+echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
+mkdir /kaggle/working/tmp
+cd /kaggle/working/tmp
+curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
+unzip memfix.zip
+apt install -y -qq libunwind8-dev
+dpkg -i *.deb
+cd /kaggle/working
+rm -rf /kaggle/working/tmp
 
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
-#git clone -b v2.0 https://github.com/camenduru/stable-diffusion-webui
-#wget https://raw.githubusercontent.com/camenduru/stable-diffusion-webui-scripts/main/run_n_times.py -O /kaggle/working/stable-diffusion-webui/scripts/run_n_times.py
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
-echo -e "${INFO_COLOR}    Downgrading Stable Diffusion${NO_COLOR}"
-cd /kaggle/working/stable-diffusion-webui
-git checkout 0cc0ee1
+#echo -e "${INFO_COLOR}    Downgrading Stable Diffusion${NO_COLOR}"
+#cd /kaggle/working/stable-diffusion-webui
+#git checkout 0cc0ee1
 
-# Python 3.8 virtual environment
-#echo -e "${INFO_COLOR}Upgrading python${NO_COLOR}"
-#rm /opt/conda/bin/python{,3,3.7}
-#ln -sf /usr/bin/python3.8 /opt/conda/bin/python
-#ln -sf /usr/bin/python3.8 /opt/conda/bin/python3
-#ln -sf /usr/bin/python3.8 /opt/conda/bin/python3.7
-#sed -n "s/python3\.7/python3\.8/" /opt/conda/bin/pip*
-
-#echo -e "${INFO_COLOR}Creating python 3.8 virtual environment${NO_COLOR}"
-#apt install -y python3.8-venv
-#python3.8 -m venv /kaggle/working/stable-diffusion-webui/venv
-#echo -e "${INFO_COLOR}Activating python 3.8 virtual environment${NO_COLOR}"
-#source /kaggle/working/stable-diffusion-webui/venv/bin/activate
-#pip install --upgrade pip setuptools
 python --version
 pip --version
 
@@ -52,16 +36,10 @@ pip install --upgrade fastapi==0.90.1 $QUIET
 echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
 pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117 -U $QUIET
 
-# Deps
-#pip install -r /kaggle/working/stable-diffusion-webui/requirements_versions.txt --extra-index-url https://download.pytorch.org/whl/cu116
-
-
-#echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Tunnels extension${NO_COLOR}"
-#git clone https://github.com/nolanaatama/sd-webui-tunnels /kaggle/working/stable-diffusion-webui/extensions/sd-webui-tunnels $QUIET
-#echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI ControlNet extension${NO_COLOR}"	
-#git clone https://github.com/Mikubill/sd-webui-controlnet /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet $QUIET
-#echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI OpenPose editor extension${NO_COLOR}"
-#git clone https://github.com/fkunn1326/openpose-editor /kaggle/working/stable-diffusion-webui/extensions/openpose-editor $QUIET
+echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI ControlNet extension${NO_COLOR}"	
+git clone https://github.com/Mikubill/sd-webui-controlnet /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet $QUIET
+echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI OpenPose editor extension${NO_COLOR}"
+git clone https://github.com/fkunn1326/openpose-editor /kaggle/working/stable-diffusion-webui/extensions/openpose-editor $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
 git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser /kaggle/working/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoCon extension${NO_COLOR}"
@@ -83,47 +61,51 @@ do
 done
 
 ## ControlNet Models
-#echo -e "${INFO_COLOR}    Installing ControlNet Models${NO_COLOR}"
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_canny.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_canny-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_depth.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_depth-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_hed-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_hed-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_mlsd-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_mlsd-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_normal-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_normal-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_openpose-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_openpose-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_scribble-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_scribble-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_seg-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_seg-fp16.safetensors
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_canny_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_canny_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_color_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_color_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_depth_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_depth_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_keypose_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_keypose_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_openpose_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_openpose_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_seg_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_seg_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_sketch_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_sketch_sd14v1.pth
-#curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_style_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_style_sd14v1.pth
+echo -e "${INFO_COLOR}    Installing ControlNet Models${NO_COLOR}"
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_canny.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_canny-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_depth.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_depth-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_hed-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_hed-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_mlsd-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_mlsd-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_normal-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_normal-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_openpose-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_openpose-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_scribble-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_scribble-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_seg-fp16.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_seg-fp16.safetensors
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_canny_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_canny_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_color_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_color_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_depth_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_depth_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_keypose_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_keypose_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_openpose_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_openpose_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_seg_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_seg_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_sketch_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_sketch_sd14v1.pth
+curl -Lo /kaggle/working/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_style_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_style_sd14v1.pth
 
 ## LoRA
 echo -e "${INFO_COLOR}    Installing Stable Diffusion LoRAs${NO_COLOR}"
 rm -rf /kaggle/working/stable-diffusion-webui/models/Lora
 cd /kaggle/working/stable-diffusion-webui/models
 git clone https://huggingface.co/Lucky555/Lora $QUIET
+git lfs pull $QUIET
 
 ## Embeddings
 echo -e "${INFO_COLOR}    Installing Stable Diffusion Embeddings${NO_COLOR}"
 rm -rf /kaggle/working/stable-diffusion-webui/embeddings
 cd /kaggle/working/stable-diffusion-webui
 git clone https://huggingface.co/Lucky555/embeddings $QUIET
+git lfs pull $QUIET
 
 ## VAE
 echo -e "${INFO_COLOR}    Installing Stable Diffusion VAEs${NO_COLOR}"
 rm -rf /kaggle/working/stable-diffusion-webui/models/VAE
 cd /kaggle/working/stable-diffusion-webui/models
 git clone https://huggingface.co/Lucky555/VAE $QUIET
+git lfs pull $QUIET
 cd /kaggle/working/stable-diffusion-webui
 
 ## ESRGAN
 echo -e "${INFO_COLOR}   Installing Stable Diffusion ESRGAN${NO_COLOR}"
 cd /kaggle/working/stable-diffusion-webui/models
 git clone https://huggingface.co/nolanaatama/ESRGAN $QUIET
+git lfs pull $QUIET
 echo -e "${INFO_COLOR}Installation completed"
 
 # Web UI tunnel
