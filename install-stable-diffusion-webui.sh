@@ -6,6 +6,12 @@ NO_COLOR='\033[0m'
 #alias curl='curl -S -s'
 #QUIET=' --quiet'
 
+python --version
+pip --version
+git --version
+git lfs install
+git lfs --version
+
 # Memory Fix
 echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
 mkdir /kaggle/working/tmp
@@ -21,12 +27,10 @@ rm -rf /kaggle/working/tmp
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
-#echo -e "${INFO_COLOR}    Downgrading Stable Diffusion${NO_COLOR}"
+#echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
 #cd /kaggle/working/stable-diffusion-webui
-#git checkout 0cc0ee1
+#git checkout 22bcc7be428c94e9408f589966c2040187245d81
 
-python --version
-pip --version
 
 # FastAPI
 echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
