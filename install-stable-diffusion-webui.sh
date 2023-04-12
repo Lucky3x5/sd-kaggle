@@ -28,9 +28,10 @@ echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
 cd /kaggle/tmp
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
-#echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
-#cd /kaggle/tmp/stable-diffusion-webui
+echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
+cd /kaggle/tmp/stable-diffusion-webui
 #git checkout 22bcc7be428c94e9408f589966c2040187245d81
+git checkout 0cc0ee1
 
 
 # FastAPI
