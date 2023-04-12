@@ -30,8 +30,8 @@ cd /kaggle/tmp
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
 echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
 cd /kaggle/tmp/stable-diffusion-webui
-#git checkout 22bcc7be428c94e9408f589966c2040187245d81
-git checkout 0cc0ee1
+git checkout 22bcc7be428c94e9408f589966c2040187245d81
+#git checkout 0cc0ee1
 
 
 # FastAPI
@@ -42,10 +42,12 @@ pip install --upgrade fastapi==0.90.1 $QUIET
 echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
 pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117 -U $QUIET
 
+if [ "x$INSTALL_CONTROLNET" = "x1" ]; then
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI ControlNet extension${NO_COLOR}"	
 git clone https://github.com/Mikubill/sd-webui-controlnet /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI OpenPose editor extension${NO_COLOR}"
 git clone https://github.com/fkunn1326/openpose-editor /kaggle/tmp/stable-diffusion-webui/extensions/openpose-editor $QUIET
+fi
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
 git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoCon extension${NO_COLOR}"
@@ -66,6 +68,7 @@ do
     curl -Lo "/kaggle/tmp/stable-diffusion-webui/models/Stable-diffusion/$model_name" "$model_url"
 done
 
+if [ "x$INSTALL_CONTROLNET" = "x1" ]; then
 ## ControlNet Models
 echo -e "${INFO_COLOR}    Installing ControlNet Models${NO_COLOR}"
 curl -Lo /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet/models/control_canny.safetensors https://huggingface.co/webui/ControlNet-modules-safetensors/resolve/main/control_canny-fp16.safetensors
@@ -84,6 +87,7 @@ curl -Lo /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet/model
 curl -Lo /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_seg_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_seg_sd14v1.pth
 curl -Lo /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_sketch_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_sketch_sd14v1.pth
 curl -Lo /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet/models/t2iadapter_style_sd14v1.pth https://huggingface.co/TencentARC/T2I-Adapter/resolve/main/models/t2iadapter_style_sd14v1.pth
+fi
 
 ## LoRA
 echo -e "${INFO_COLOR}    Installing Stable Diffusion LoRAs${NO_COLOR}"
