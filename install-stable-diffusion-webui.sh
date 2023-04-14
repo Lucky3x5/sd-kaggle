@@ -33,6 +33,8 @@ cd /kaggle/tmp/stable-diffusion-webui
 #git checkout 22bcc7be428c94e9408f589966c2040187245d81
 git checkout 0cc0ee1
 
+python -m venv /kaggle/tmp/stable-diffusion-webui/venv
+source /kaggle/tmp/stable-diffusion-webui/venv/bin/activate
 
 # FastAPI
 echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
