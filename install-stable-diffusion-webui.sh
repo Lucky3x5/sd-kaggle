@@ -35,6 +35,7 @@ git checkout 0cc0ee1
 
 python -m venv /kaggle/tmp/stable-diffusion-webui/venv
 source /kaggle/tmp/stable-diffusion-webui/venv/bin/activate
+pip install --upgrade pip setuptools
 
 # FastAPI
 echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
