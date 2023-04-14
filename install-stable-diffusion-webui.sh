@@ -92,7 +92,7 @@ echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI HighRes Fix extensio
 if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive" ]; then 
 git clone https://github.com/Kahsolt/stable-diffusion-webui-hires-fix-progressive /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive $QUIET
 else
-cd /kaggle/tmp/stable-diffusion-webui/extensionsstable-diffusion-webui-hires-fix-progressive
+cd /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive
 git pull $QUIET
 fi
 
@@ -142,7 +142,7 @@ git lfs pull $QUIET
 
 ## Embeddings
 echo -e "${INFO_COLOR}    Installing Stable Diffusion Embeddings${NO_COLOR}"
-if [ ! -d "/kaggle/tmp/stable-diffusion-webui/models/embeddings/.git" ]; then
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/embeddings/.git" ]; then
 rm -rf /kaggle/tmp/stable-diffusion-webui/embeddings
 git clone https://huggingface.co/Lucky555/embeddings /kaggle/tmp/stable-diffusion-webui/embeddings $QUIET
 fi
