@@ -6,6 +6,13 @@ NO_COLOR='\033[0m'
 #alias curl='curl -S -s'
 #QUIET=' --quiet'
 
+NONPERSISTENT_DIR="/kaggle/tmp"
+PERSISTENT_DIR="/kaggle/working"
+
+if [ "x$FORCE_REINSTALL" = "x1" ]; then
+    rm -rf $NONPERSISTENT_DIR/.memfix $NONPERSISTENT_DIR/repositories $PERSISTENT_DIR/stable-diffusion-webui
+fi
+
 python --version
 pip --version
 git --version
@@ -14,16 +21,16 @@ git lfs --version
 
 # Memory Fix
 echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
-if [ ! -f "/kaggle/tmp/.memfix" ]; then
-mkdir /kaggle/tmp/tmp
-cd /kaggle/tmp/tmp
+if [ ! -f "$NONPERSISTENT_DIR/.memfix" ]; then
+mkdir $NONPERSISTENT_DIR/tmp
+cd $NONPERSISTENT_DIR/tmp
 curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
 unzip memfix.zip
 apt install -y -qq libunwind8-dev
 dpkg -i *.deb
-cd /kaggle/tmp
-rm -rf /kaggle/tmp/tmp
-touch /kaggle/tmp/.memfix
+cd $NONPERSISTENT_DIR
+rm -rf $NONPERSISTENT_DIR/tmp
+touch $NONPERSISTENT_DIR/.memfix
 fi
 
 # Stable Diffusion WebUI
@@ -54,14 +61,29 @@ echo -e "${INFO_COLOR}Installing FastAPI${NO_COLOR}"
 pip install --upgrade fastapi==0.90.1 $QUIET
 
 # pyTorch
-echo -e "${INFO_COLOR}Installing pyTorch and deps${NO_COLOR}"
+echo -e "${INFO_COLOR}Installing pyTorch${NO_COLOR}"
 pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 torchtext==0.14.1 torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu117 -U $QUIET
 
 if [ "x$INSTALL_CONTROLNET" = "x1" ]; then
-echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI ControlNet extension${NO_COLOR}"	
+
+echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI ControlNet extension${NO_COLOR}"
+	
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet" ]; then 
 git clone https://github.com/Mikubill/sd-webui-controlnet /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet $QUIET
+else
+cd /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-controlnet
+git pull $QUIET
+fi
+
+
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI OpenPose editor extension${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/openpose-editor" ]; then 
 git clone https://github.com/fkunn1326/openpose-editor /kaggle/tmp/stable-diffusion-webui/extensions/openpose-editor $QUIET
+else
+cd /kaggle/tmp/stable-diffusion-webui/extensions/openpose-editor
+git pull $QUIET
+fi
+
 fi
 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
