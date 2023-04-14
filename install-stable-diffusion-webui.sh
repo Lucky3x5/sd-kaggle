@@ -14,6 +14,7 @@ git lfs --version
 
 # Memory Fix
 echo -e "${INFO_COLOR}Installing memory fix packages${NO_COLOR}"
+if [ ! -f "/kaggle/tmp/.memfix" ]; then
 mkdir /kaggle/tmp/tmp
 cd /kaggle/tmp/tmp
 curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
@@ -22,19 +23,30 @@ apt install -y -qq libunwind8-dev
 dpkg -i *.deb
 cd /kaggle/tmp
 rm -rf /kaggle/tmp/tmp
+touch /kaggle/tmp/.memfix
+fi
 
 # Stable Diffusion WebUI
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
-echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
 cd /kaggle/tmp
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui" ]; then
+echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
 git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $QUIET
+fi
 echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
 cd /kaggle/tmp/stable-diffusion-webui
+git fetch
 #git checkout 22bcc7be428c94e9408f589966c2040187245d81
 git checkout 0cc0ee1
 
+# Python VENV
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/venv/bin" ]; then
+echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
 python -m venv /kaggle/tmp/stable-diffusion-webui/venv
+fi
+echo -e "${INFO_COLOR}Activating Python virtual environment${NO_COLOR}"
 source /kaggle/tmp/stable-diffusion-webui/venv/bin/activate
+echo -e "${INFO_COLOR}Upgrading Python virtual environment tools${NO_COLOR}"
 pip install --upgrade pip setuptools
 
 # FastAPI
@@ -51,14 +63,38 @@ git clone https://github.com/Mikubill/sd-webui-controlnet /kaggle/tmp/stable-dif
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI OpenPose editor extension${NO_COLOR}"
 git clone https://github.com/fkunn1326/openpose-editor /kaggle/tmp/stable-diffusion-webui/extensions/openpose-editor $QUIET
 fi
+
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser"]; then 
 git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
+else
+cd /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
+git pull $QUIET
+fi
+
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoCon extension${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon"]; then 
 git clone https://github.com/Lucky3x5/a1111-sd-webui-locon /kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon $QUIET
+else
+cd /kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon
+git pull $QUIET
+fi
+
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoRA block weight extension${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight"]; then 
 git clone https://github.com/hako-mikan/sd-webui-lora-block-weight /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight $QUIET
+else
+cd /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight
+git pull $QUIET
+fi
+
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI HighRes Fix extension${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive"]; then 
 git clone https://github.com/Kahsolt/stable-diffusion-webui-hires-fix-progressive /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive $QUIET
+else
+cd /kaggle/tmp/stable-diffusion-webui/extensionsstable-diffusion-webui-hires-fix-progressive
+git pull $QUIET
+fi
 
 ## Stable Diffusion Models
 echo -e "${INFO_COLOR}    Installing Stable Diffusion Models${NO_COLOR}"
@@ -67,8 +103,10 @@ read -ra newarr <<< "$SD_MODELS"
 for model_url in "${newarr[@]}";
 do
     model_name=$(basename "$model_url")
+    if [ ! -r "/kaggle/tmp/stable-diffusion-webui/models/Stable-diffusion/$model_name" ]; then
     echo -e "${INFO_COLOR}            $model_name${NO_COLOR}"
     curl -Lo "/kaggle/tmp/stable-diffusion-webui/models/Stable-diffusion/$model_name" "$model_url"
+    fi
 done
 
 if [ "x$INSTALL_CONTROLNET" = "x1" ]; then
@@ -94,31 +132,43 @@ fi
 
 ## LoRA
 echo -e "${INFO_COLOR}    Installing Stable Diffusion LoRAs${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/models/Lora/.git" ]; then
 rm -rf /kaggle/tmp/stable-diffusion-webui/models/Lora
-cd /kaggle/tmp/stable-diffusion-webui/models
-git clone https://huggingface.co/Lucky555/Lora $QUIET
+git clone https://huggingface.co/Lucky555/Lora /kaggle/tmp/stable-diffusion-webui/models/Lora $QUIET
+fi
+cd /kaggle/tmp/stable-diffusion-webui/models/Lora
+git pull $QUIET
 git lfs pull $QUIET
 
 ## Embeddings
 echo -e "${INFO_COLOR}    Installing Stable Diffusion Embeddings${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/models/embeddings/.git" ]; then
 rm -rf /kaggle/tmp/stable-diffusion-webui/embeddings
-cd /kaggle/tmp/stable-diffusion-webui
-git clone https://huggingface.co/Lucky555/embeddings $QUIET
+git clone https://huggingface.co/Lucky555/embeddings /kaggle/tmp/stable-diffusion-webui/embeddings $QUIET
+fi
+cd /kaggle/tmp/stable-diffusion-webui/embeddings
+git pull $QUIET
 git lfs pull $QUIET
 
 ## VAE
 echo -e "${INFO_COLOR}    Installing Stable Diffusion VAEs${NO_COLOR}"
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/models/VAE/.git" ]; then
 rm -rf /kaggle/tmp/stable-diffusion-webui/models/VAE
-cd /kaggle/tmp/stable-diffusion-webui/models
-git clone https://huggingface.co/Lucky555/VAE $QUIET
+git clone https://huggingface.co/Lucky555/VAE /kaggle/tmp/stable-diffusion-webui/models/VAE $QUIET
+fi
+cd /kaggle/tmp/stable-diffusion-webui/models/VAE
+git pull $QUIET
 git lfs pull $QUIET
-cd /kaggle/tmp/stable-diffusion-webui
 
 ## ESRGAN
 echo -e "${INFO_COLOR}   Installing Stable Diffusion ESRGAN${NO_COLOR}"
-cd /kaggle/tmp/stable-diffusion-webui/models
-git clone https://huggingface.co/nolanaatama/ESRGAN $QUIET
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/models/ESRGAN" ]; then
+git clone https://huggingface.co/nolanaatama/ESRGAN /kaggle/tmp/stable-diffusion-webui/models/ESRGAN $QUIET
+fi
+cd /kaggle/tmp/stable-diffusion-webui/models/ESRGAN
+git pull $QUIET
 git lfs pull $QUIET
+
 echo -e "${INFO_COLOR}Installation completed"
 
 # Web UI tunnel
