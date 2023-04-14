@@ -65,7 +65,7 @@ git clone https://github.com/fkunn1326/openpose-editor /kaggle/tmp/stable-diffus
 fi
 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
-if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser"]; then 
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser" ]; then 
 git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
 else
 cd /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
@@ -73,7 +73,7 @@ git pull $QUIET
 fi
 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoCon extension${NO_COLOR}"
-if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon"]; then 
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon" ]; then 
 git clone https://github.com/Lucky3x5/a1111-sd-webui-locon /kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon $QUIET
 else
 cd /kaggle/tmp/stable-diffusion-webui/extensions/a1111-sd-webui-locon
@@ -81,7 +81,7 @@ git pull $QUIET
 fi
 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI LoRA block weight extension${NO_COLOR}"
-if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight"]; then 
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight" ]; then 
 git clone https://github.com/hako-mikan/sd-webui-lora-block-weight /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight $QUIET
 else
 cd /kaggle/tmp/stable-diffusion-webui/extensions/sd-webui-lora-block-weight
@@ -89,7 +89,7 @@ git pull $QUIET
 fi
 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI HighRes Fix extension${NO_COLOR}"
-if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive"]; then 
+if [ ! -d "/kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive" ]; then 
 git clone https://github.com/Kahsolt/stable-diffusion-webui-hires-fix-progressive /kaggle/tmp/stable-diffusion-webui/extensions/stable-diffusion-webui-hires-fix-progressive $QUIET
 else
 cd /kaggle/tmp/stable-diffusion-webui/extensionsstable-diffusion-webui-hires-fix-progressive
