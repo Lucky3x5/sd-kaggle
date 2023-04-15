@@ -165,9 +165,9 @@ git lfs pull $QUIET
 ## Embeddings
 echo -e "${INFO_COLOR}    Installing Stable Diffusion Embeddings${NO_COLOR}"
 if [ ! -d "$SDW_DIR/embeddings/.git" ]; then
-    git clone https://huggingface.co/Lucky555/embeddings $EMB_DIR/embeddings $QUIET
+    git clone https://huggingface.co/Lucky555/embeddings $EMB_DIR $QUIET
     rm -rf $SDW_DIR/embeddings
-    ln -s $EMB_DIR $SDW_DIR/embeddings
+    ln -s $EMB_DIR $SDW_DIR
 fi
 cd $EMB_DIR
 git pull $QUIET
