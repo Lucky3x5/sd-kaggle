@@ -44,8 +44,8 @@ touch $NONPERSISTENT_DIR/.memfix
 fi
 
 # Stable Diffusion WebUI
-echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 if [ ! -d "$SDW_DIR" ]; then
+    echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
     echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
     git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $SDW_DIR $QUIET
     echo -e "${INFO_COLOR}    Downgrading Stable Diffusion WebUI to a working release${NO_COLOR}"
@@ -54,11 +54,14 @@ if [ ! -d "$SDW_DIR" ]; then
     git checkout 0cc0ee1
     mv $SDW_DIR/models $MODEL_DIR
     ln -s $MODEL_DIR $SDW_DIR/models
+    mkdir $NONPERSISTENT_DIR/{outputs/log}
+    ln -s $NONPERSISTENT_DIR/outputs $SDW_DIR/outputs
+    ln -s $NONPERSISTENT_DIR/log $SDW_DIR/log
 fi
 
 # Python VENV
 if [ ! -d "$SDW_DIR/venv/bin" ]; then
-echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
+        echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
 python -m venv $SDW_DIR/venv
 fi
 echo -e "${INFO_COLOR}Activating Python virtual environment${NO_COLOR}"
