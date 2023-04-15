@@ -51,12 +51,13 @@ if [ ! -d "$SDW_DIR" ]; then
     mv $SDW_DIR/models $MODEL_DIR
     ln -s $MODEL_DIR $SDW_DIR/models
 fi
-echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
+echo -e "${INFO_COLOR}    Downgrading Stable Diffusion WebUI to a working release${NO_COLOR}"
 cd $SDW_DIR
 git fetch
+git stash push
 #git checkout 22bcc7be428c94e9408f589966c2040187245d81
 git checkout 0cc0ee1
-
+git stash clear
 
 # Python VENV
 if [ ! -d "$SDW_DIR/venv/bin" ]; then
@@ -167,7 +168,7 @@ echo -e "${INFO_COLOR}    Installing Stable Diffusion Embeddings${NO_COLOR}"
 if [ ! -d "$SDW_DIR/embeddings/.git" ]; then
     git clone https://huggingface.co/Lucky555/embeddings $EMB_DIR $QUIET
     rm -rf $SDW_DIR/embeddings
-    ln -s $EMB_DIR $SDW_DIR
+    ln -s $EMB_DIR $SDW_DIR/embeddings
 fi
 cd $EMB_DIR
 git pull $QUIET
@@ -193,6 +194,8 @@ git pull $QUIET
 git lfs pull $QUIET
 
 echo -e "${INFO_COLOR}Installation completed"
+
+pip cache purge
 
 # Web UI tunnel
 echo -e "${INFO_COLOR}Starting WebUI${NO_COLOR}"
