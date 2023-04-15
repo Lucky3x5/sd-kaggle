@@ -20,7 +20,7 @@ MODEL_DIR=$NONPERSISTENT_DIR/stable-diffusion-models
 EMB_DIR=$NONPERSISTENT_DIR/stable-diffusion-embeddings
 
 if [ "x$FORCE_REINSTALL" = "x1" ]; then
-    rm -rf $NONPERSISTENT_DIR/.memfix $MODEL_DIR $CNET_MODEL_DIR $EMB_DIR $SDW_DIR
+    rm -rf $NONPERSISTENT_DIR/.memfix $MODEL_DIR $CNET_MODEL_DIR $EMB_DIR $SDW_DIR $NONPERSISTENT_DIR/stable-diffusion-webui
 fi
 
 python --version
