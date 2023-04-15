@@ -54,15 +54,35 @@ if [ ! -d "$SDW_DIR" ]; then
     git checkout 0cc0ee1
     mv $SDW_DIR/models $MODEL_DIR
     ln -s $MODEL_DIR $SDW_DIR/models
-    mkdir $NONPERSISTENT_DIR/{outputs/log}
+    mkdir $NONPERSISTENT_DIR/{outputs,log}
     ln -s $NONPERSISTENT_DIR/outputs $SDW_DIR/outputs
     ln -s $NONPERSISTENT_DIR/log $SDW_DIR/log
 fi
 
+if [ ! -d "$SDW_DIR/models" ]; then
+    mkdir -p $NONPERSISTENT_DIR/models/{deepbooru,karlo,Stable-diffusion,VAE,VAE-approx}
+    ln -s $MODEL_DIR $SDW_DIR/models
+fi
+
+if [ ! -d  "$SDW_DIR/outputs" ]; then
+    mkdir -p $NONPERSISTENT_DIR/outputs
+    ln -s $NONPERSISTENT_DIR/outputs $SDW_DIR/outputs
+fi
+
+if [ ! -d  "$SDW_DIR/log" ]; then
+    mkdir -p $NONPERSISTENT_DIR/log
+    ln -s $NONPERSISTENT_DIR/log $SDW_DIR/log
+fi
+
+if [ ! -d  "$EMB_DIR" ]; then
+    mkdir -p $EMB_DIR
+    ln -s $EMB_DIR $SDW_DIR/embeddings
+fi
+
 # Python VENV
 if [ ! -d "$SDW_DIR/venv/bin" ]; then
-        echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
-python -m venv $SDW_DIR/venv
+    echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
+    python -m venv $SDW_DIR/venv
 fi
 echo -e "${INFO_COLOR}Activating Python virtual environment${NO_COLOR}"
 source $SDW_DIR/venv/bin/activate
