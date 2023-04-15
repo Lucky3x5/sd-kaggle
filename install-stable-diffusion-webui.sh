@@ -48,16 +48,13 @@ echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 if [ ! -d "$SDW_DIR" ]; then
     echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
     git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $SDW_DIR $QUIET
+    echo -e "${INFO_COLOR}    Downgrading Stable Diffusion WebUI to a working release${NO_COLOR}"
+    cd $SDW_DIR
+    #git checkout 22bcc7be428c94e9408f589966c2040187245d81
+    git checkout 0cc0ee1
     mv $SDW_DIR/models $MODEL_DIR
     ln -s $MODEL_DIR $SDW_DIR/models
 fi
-echo -e "${INFO_COLOR}    Downgrading Stable Diffusion WebUI to a working release${NO_COLOR}"
-cd $SDW_DIR
-git fetch
-git stash push
-#git checkout 22bcc7be428c94e9408f589966c2040187245d81
-git checkout 0cc0ee1
-git stash clear
 
 # Python VENV
 if [ ! -d "$SDW_DIR/venv/bin" ]; then
