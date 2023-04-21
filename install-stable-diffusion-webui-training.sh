@@ -37,7 +37,7 @@ fi
 echo -e "${INFO_COLOR}Installing Stable Diffusion WebUI${NO_COLOR}"
 if [ ! -d "/kaggle/tmp/stable-diffusion-webui" ]; then
     echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Core${NO_COLOR}"
-    git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $NONPERSISTENT_DIR $QUIET
+    git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui $NONPERSISTENT_DIR/stable-diffusion-webui $QUIET
 fi
 echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
 cd $NONPERSISTENT_DIR/stable-diffusion-webui
@@ -88,7 +88,7 @@ done
 echo -e "${INFO_COLOR}    Installing Stable Diffusion VAEs${NO_COLOR}"
 if [ ! -d "$NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE/.git" ]; then
 rm -rf $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE
-git clone https://huggingface.co/Lucky555/VAE /kaggle/tmp/stable-diffusion-webui/models/VAE $NONPERSISTENT_DIR $QUIET
+git clone https://huggingface.co/Lucky555/VAE $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE $QUIET
 fi
 cd $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE
 git pull $QUIET
