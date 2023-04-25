@@ -42,13 +42,13 @@ fi
 echo -e "${INFO_COLOR}    Downgrading Stable Diffusion to a working release${NO_COLOR}"
 cd $NONPERSISTENT_DIR/stable-diffusion-webui
 git fetch
-git checkout 22bcc7be428c94e9408f589966c2040187245d81
-#git checkout 0cc0ee1
+#git checkout 22bcc7be428c94e9408f589966c2040187245d81
+git checkout 0cc0ee1
 
 # Python VENV
 if [ ! -d "$NONPERSISTENT_DIR/stable-diffusion-webui/venv/bin" ]; then
-echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
-python -m venv $NONPERSISTENT_DIR/stable-diffusion-webui/venv
+    echo -e "${INFO_COLOR}Creating Python virtual environment${NO_COLOR}"
+    python -m venv $NONPERSISTENT_DIR/stable-diffusion-webui/venv
 fi
 echo -e "${INFO_COLOR}Activating Python virtual environment${NO_COLOR}"
 source $NONPERSISTENT_DIR/stable-diffusion-webui/venv/bin/activate
@@ -65,10 +65,10 @@ pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 tor
 
 echo -e "${INFO_COLOR}    Installing Stable Diffusion WebUI Image Browser extension${NO_COLOR}"
 if [ ! -d "$NONPERSISTENT_DIR/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser" ]; then 
-git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser $NONPERSISTENT_DIR/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
+    git clone https://github.com/yfszzx/stable-diffusion-webui-images-browser $NONPERSISTENT_DIR/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser $QUIET
 else
-cd $NONPERSISTENT_DIR/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
-git pull $QUIET
+    cd $NONPERSISTENT_DIR/stable-diffusion-webui/extensions/stable-diffusion-webui-images-browser
+    git pull $QUIET
 fi
 
 ## Stable Diffusion Models
@@ -87,8 +87,8 @@ done
 ## VAE
 echo -e "${INFO_COLOR}    Installing Stable Diffusion VAEs${NO_COLOR}"
 if [ ! -d "$NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE/.git" ]; then
-rm -rf $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE
-git clone https://huggingface.co/Lucky555/VAE $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE $QUIET
+    rm -rf $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE
+    git clone https://huggingface.co/Lucky555/VAE $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE $QUIET
 fi
 cd $NONPERSISTENT_DIR/stable-diffusion-webui/models/VAE
 git pull $QUIET
@@ -97,7 +97,7 @@ git lfs pull $QUIET
 ## ESRGAN
 echo -e "${INFO_COLOR}   Installing Stable Diffusion ESRGAN${NO_COLOR}"
 if [ ! -d "$NONPERSISTENT_DIR/stable-diffusion-webui/models/ESRGAN" ]; then
-git clone https://huggingface.co/nolanaatama/ESRGAN $NONPERSISTENT_DIR/stable-diffusion-webui/models/ESRGAN $QUIET
+    git clone https://huggingface.co/nolanaatama/ESRGAN $NONPERSISTENT_DIR/stable-diffusion-webui/models/ESRGAN $QUIET
 fi
 cd $NONPERSISTENT_DIR/stable-diffusion-webui/models/ESRGAN
 git pull $QUIET
