@@ -36,12 +36,16 @@ mkdir $NONPERSISTENT_DIR/tmp
 cd $NONPERSISTENT_DIR/tmp
 curl -Lo memfix.zip https://github.com/nolanaatama/sd-webui/raw/main/memfix.zip
 unzip memfix.zip
+apt update
 apt install -y -qq libunwind8-dev
 dpkg -i *.deb
 cd $NONPERSISTENT_DIR
 rm -rf $NONPERSISTENT_DIR/tmp
 touch $NONPERSISTENT_DIR/.memfix
 fi
+
+echo -e "${INFO_COLOR}Installing aria2/cURL packages${NO_COLOR}"
+apt install -y aria2 curl
 
 # Stable Diffusion WebUI
 if [ ! -d "$SDW_DIR" ]; then
@@ -147,6 +151,23 @@ cd $SDW_DIR/extensions/stable-diffusion-webui-hires-fix-progressive
 git pull $QUIET
 fi
 
+echo -e "${INFO_COLOR}    Installing Stable Diffusion Outpainting extension${NO_COLOR}"
+if [ ! -d "$SDW_DIR/extensions/openOutpaint-webUI-extension" ]; then 
+git clone https://github.com/zero01101/openOutpaint-webUI-extension $SDW_DIR/extensions/openOutpaint-webUI-extension $QUIET
+else
+cd $SDW_DIR/extensions/openOutpaint-webUI-extension
+git pull $QUIET
+fi
+
+echo -e "${INFO_COLOR}    Installing Stable Diffusion Civitai extension${NO_COLOR}"
+if [ ! -d "$SDW_DIR/extensions/sd_civitai_extension" ]; then 
+git clone https://github.com/civitai/sd_civitai_extension $SDW_DIR/extensions/sd_civitai_extension $QUIET
+else
+cd $SDW_DIR/extensions/sd_civitai_extension
+git pull $QUIET
+fi
+
+
 ## Stable Diffusion Models
 echo -e "${INFO_COLOR}    Installing Stable Diffusion Models${NO_COLOR}"
 echo -e "${INFO_COLOR}        Models: $SD_MODELS${NO_COLOR}"
@@ -156,7 +177,8 @@ do
     model_name=$(basename "$model_url")
     if [ ! -r "$MODEL_DIR/Stable-diffusion/$model_name" ]; then
     echo -e "${INFO_COLOR}            $model_name${NO_COLOR}"
-    curl -Lo "$MODEL_DIR/Stable-diffusion/$model_name" "$model_url"
+    #curl -Lo "$MODEL_DIR/Stable-diffusion/$model_name" "$model_url"
+    aria2c -c -x 5 -d "$MODEL_DIR/Stable-diffusion" -o "$model_name" "$model_url"
     fi
 done
 
